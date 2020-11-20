@@ -26,6 +26,9 @@ namespace NETCOREM3_DatabaseFirst_EF
         {
             services.AddControllersWithViews();
             services.AddDbContext<SalesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(20));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +45,7 @@ namespace NETCOREM3_DatabaseFirst_EF
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
@@ -49,7 +53,7 @@ namespace NETCOREM3_DatabaseFirst_EF
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Seguridad}/{action=Index}/{id?}");
             });
         }
     }

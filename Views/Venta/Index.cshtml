@@ -1,0 +1,196 @@
+﻿@{
+
+    List<Customer> customers = (List<Customer>)ViewBag.ListadoCliente;
+    List<Product> products = (List<Product>)ViewBag.ListadoProducto;
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+
+<h1>Registro de Ordenes</h1>
+
+<div class="alert alert-primary" role="alert">
+    Datos Principales
+</div>
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label>Fecha</label>
+            <input type="date" class="form-control" id="txtFecha" />
+        </div>
+        <div class="form-group col-md-2">
+            <label>Nro. Orden</label>
+            <input type="number" class="form-control" id="txtNroOrden" />
+        </div>
+
+        <div class="form-group col-md-4">
+            <label>Cliente</label>
+            <select id="cboCliente" class="form-control">
+                <option selected>Elija un cliente...</option>
+                @foreach (var item in customers)
+                {
+                    <option value="@item.Id">
+                        @(item.FirstName + " "+item.LastName)
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label>Tipo de Cambio EUR</label>
+            <input type="number" class="form-control" id="txtTipoCambioOrden" value="@ViewBag.TipoCambioEUR" />
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="alert alert-primary" role="alert">
+        Agregar Productos
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Producto</label>
+            <select id="cboProducto" class="form-control">
+                <option selected>Elija un producto...</option>
+                @foreach (var item in products)
+                {
+                    <option value="@item.Id">@item.ProductName</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label>Precio Unit.</label>
+            <input type="text" class="form-control" id="txtPrecioUnitario" />
+        </div>
+        <div class="form-group col-md-2">
+            <label>Cantidad</label>
+            <input type="number" class="form-control" id="txtCantidad" />
+        </div>
+        <div class="form-group col-md-2">
+            <button type="button" id="btnAgregarProducto" class="btn btn-success">Agregar</button>
+        </div>
+        <div class="form-group col-md-2">
+            <button type="button" id="btnConfirmarOrden" class="btn btn-info">Confirmar</button>
+        </div>
+    </div>
+
+</form>
+
+<hr />
+<div class="alert alert-light" role="alert">
+    Productos Agregados
+</div>
+<div id="divListadoProductos">
+
+</div>
+<div class="alert alert-light" role="alert">
+    Listado de Ordenes
+</div>
+<div id="divListadoOrdenes">
+
+</div>
+
+
+<script type="text/javascript">
+    CargarListadoProductos();
+    CargarListadoOrdenes();
+
+    function CargarListadoProductos() {
+        $.ajax({
+            type: "POST",
+            url: "/Venta/ListadoProducto",
+            cache: false,
+            success: function (dataHTML) {
+                if (dataHTML != null) {
+                    $("#divListadoProductos").html(dataHTML);
+                } else {
+                    alert("Ocurrió un error en el listado de productos");
+                }
+            }
+        });
+
+    }
+
+    $("#btnConfirmarOrden").click(function () {
+        var vCustomerID = $("#cboCliente").val();
+        var vOrderDate = $("#txtFecha").val();
+        var vOrderNumber = $("#txtNroOrden").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Venta/ConfirmarOrden",
+            cache: false,
+            data: {
+                customerID: vCustomerID,
+                orderDate: vOrderDate,
+                orderNumber: vOrderNumber
+            },
+            success: function (data) {
+                alert("Se confirmó la Orden Correctamente...");
+                CargarListadoOrdenes();
+            }
+        });
+    });
+
+    function CargarListadoOrdenes() {
+        $.ajax({
+            type: "GET",
+            url: "/Venta/ListadoOrdenes",
+            cache: false,
+            success: function (dataHtml) {
+                $("#divListadoOrdenes").html(dataHtml);
+                $("#divListadoOrdenes #tbOrdenes").DataTable();
+            }
+        });
+
+    }
+
+
+    $("#divListadoProductos").on('click', '.btnQuitarProducto', function () {
+        var vIdProducto = $(this).attr('data-productid');
+        if (confirm("¿Estás seguro de eliminar el producto de la orden?")) {
+
+            $.ajax({
+                type: "GET",
+                url: "/Venta/QuitarProductoOrden",
+                cache: false,
+                data: { productID: vIdProducto },
+                success: function (data) {
+                    CargarListadoProductos();
+                }
+            });
+        }
+    });
+
+
+    $("#btnAgregarProducto").click(function () {
+        var vProductID = $("#cboProducto").val();
+        var vUnitPrice = $("#txtPrecioUnitario").val();
+        var vQuantity = $("#txtCantidad").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Venta/AgregarProducto",
+            data: { productID: vProductID, unitPrice: vUnitPrice, quantity: vQuantity },
+            cache: false,
+            success: function (data) {
+                if (data == "DUP") {
+                    alert("El producto ya se encuentra agregado a la lista");
+                } else {
+                    CargarListadoProductos();
+                }
+            }
+
+        });
+
+
+    });
+
+
+
+
+</script>

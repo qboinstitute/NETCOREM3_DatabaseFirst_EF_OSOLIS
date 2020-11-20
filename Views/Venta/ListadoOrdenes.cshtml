@@ -1,0 +1,28 @@
+﻿@{
+
+    List<Order> listado = ViewBag.Listado;
+
+}
+
+<table id="tbOrdenes" class="table">
+    <thead>
+        <tr>
+            <th>Nro. Orden</th>
+            <th>Fecha Orden</th>
+            <th>Cliente</th>
+            <th>Monto Total Orden</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Order item in listado)
+    {
+            <tr>
+                <td>@item.OrderNumber</td>
+                <td>@item.OrderDate</td>
+                <td>@item.CustomerId</td>
+                <td>@item.TotalAmount</td>
+            </tr>
+    }
+
+    </tbody>
+</table>

@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<div class="form-control">
+    <form asp-action="Login">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Correo</label>
+            <input type="email" class="form-control" id="txtCorreo" name="Correo" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Clave</label>
+            <input type="password" class="form-control" id="txtClave" name="Clave">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+    </form>
+</div>

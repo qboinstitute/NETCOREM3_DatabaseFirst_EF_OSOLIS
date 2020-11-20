@@ -1,0 +1,49 @@
+﻿@{
+
+    List<OrderItem> productos;
+
+    if (ViewBag.ProductosAgregados == null)
+    {
+        productos = new List<OrderItem>();
+    }
+    else
+    {
+        productos = (List<OrderItem>)ViewBag.ProductosAgregados;
+    }
+
+    List<Product> baseProductos = ViewBag.ListadoProducto;
+
+}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in productos)
+        {
+            <tr>
+                <td>@baseProductos.Where(x=>x.Id == item.ProductId).FirstOrDefault().ProductName</td>
+                <td>@item.UnitPrice</td>
+                <td>@item.Quantity</td>
+                <td>@(item.UnitPrice * item.Quantity)</td>
+                <td>
+                    <input type="button" 
+                           data-productid="@item.ProductId"
+                           class="btnQuitarProducto btn btn-danger"
+                           value="Quitar"/>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
