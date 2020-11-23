@@ -34,7 +34,7 @@ namespace NETCOREM3_DatabaseFirst_EF.DataAccess
                     decimal totalAmount = 0;
                     foreach (var item in detalle)
                     {
-                        totalAmount = totalAmount * (item.UnitPrice * item.Quantity);
+                        totalAmount = totalAmount + (item.UnitPrice * item.Quantity);
                         item.OrderId = newOrderID;
                     }
                     await data.OrderItems.AddRangeAsync(detalle);

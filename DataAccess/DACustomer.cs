@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NETCOREM3_DatabaseFirst_EF.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,22 @@ namespace NETCOREM3_DatabaseFirst_EF.DataAccess
 {
     public class DACustomer
     {
+        public static List<Customer> Listado(string city)
+        {
+            using (var data = new SalesContext())
+            {
+                return data.Customers.Where(x => x.City.Contains(city)).OrderBy(x => x.Country).ToList();
+            }
+        }
+
+        public static List<Customer> Listado(string city, string country)
+        {
+            using (var data = new SalesContext())
+            {
+                return data.Customers.Where(x=>x.City.Equals(city) && x.Country.Equals(country)).OrderBy(x => x.Country).ToList();
+            }
+        }
+
         public static List<Customer> Listado()
         {
             using (var data = new SalesContext())

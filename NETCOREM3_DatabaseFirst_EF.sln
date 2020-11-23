@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETCOREM3_DatabaseFirst_EF", "NETCOREM3_DatabaseFirst_EF.csproj", "{88470369-C132-4D17-AC83-80851715EB9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NETCOREM3_DatabaseFirst_EF", "NETCOREM3_DatabaseFirst_EF.csproj", "{88470369-C132-4D17-AC83-80851715EB9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Service", "..\Sales.Service\Sales.Service.csproj", "{3303BDA5-D3FF-44E8-959F-13A6E970986A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.BusinessObject", "..\Sales.BusinessObject\Sales.BusinessObject.csproj", "{86EE3C9D-C15B-41D1-9728-7FC1BB3BF8E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{88470369-C132-4D17-AC83-80851715EB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88470369-C132-4D17-AC83-80851715EB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88470369-C132-4D17-AC83-80851715EB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3303BDA5-D3FF-44E8-959F-13A6E970986A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3303BDA5-D3FF-44E8-959F-13A6E970986A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3303BDA5-D3FF-44E8-959F-13A6E970986A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3303BDA5-D3FF-44E8-959F-13A6E970986A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86EE3C9D-C15B-41D1-9728-7FC1BB3BF8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86EE3C9D-C15B-41D1-9728-7FC1BB3BF8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86EE3C9D-C15B-41D1-9728-7FC1BB3BF8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86EE3C9D-C15B-41D1-9728-7FC1BB3BF8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

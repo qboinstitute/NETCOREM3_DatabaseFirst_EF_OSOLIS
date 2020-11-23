@@ -12,6 +12,13 @@
         <div class="col-md-2">
             <button id="btnAgregarCliente" class="btn btn-success">Agregar</button>
         </div>
+        <div class="col-md-2">
+            @Html.ActionLink("Reporte en CSV", "ReporteCSV")
+        </div>
+        <div class="col-md-2">
+            @Html.ActionLink("Reporte en XLS", "ReporteXLS")
+        </div>
+
     </div>
 </div>
 
@@ -80,6 +87,12 @@
     </div>
 </div>
 
+
+<input type="text" id="txtBCity" />
+<button id="btnBuscar">BUSCAR</button>
+<hr />
+
+
 <div id="divListadoClientes">
 
 </div>
@@ -87,6 +100,23 @@
 
 <script type="text/javascript">
 
+    $("#btnBuscar").click(function () {
+
+
+        var vCity = $("#txtBCity").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Customer/ListadoBusqueda",
+            cache: false,
+            data: {
+                city: vCity
+            },
+            success: function (exito) {
+                $("#divListadoClientes").html(exito);
+            }
+        });
+    });
     CargarListadoCliente();
 
     function CargarListadoCliente() {

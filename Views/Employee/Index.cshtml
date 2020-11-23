@@ -1,0 +1,61 @@
+﻿@using Sales.BusinessObject;
+@{
+    ViewData["Title"] = "Index";
+    List<EmployeeBO> listado = (List<EmployeeBO>)ViewBag.Listado;
+}
+
+<h1>Registro de Empleados</h1>
+<form asp-action="Grabar">
+    <div class="form-row">
+        <div class="col-md-3">
+            <input type="text" name="nombre" />
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="salario" />
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="edad" />
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="perfil" />
+        </div>
+    </div>
+
+    <div class="row">
+        <input type="submit" value="enviar" />
+    </div>
+
+</form>
+
+<br />
+
+<h1>Listado de Empleados</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>SALARIO</th>
+            <th>EDAD</th>
+            <th>PERFIL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in listado)
+        {
+            <tr>
+                <td>@item._id</td>
+                <td>@item.nombre</td>
+                <td>@item.salario</td>
+                <td>@item.edad</td>
+                <td>
+                    <img src="@item.perfil" width="30px" height="30px" />
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
